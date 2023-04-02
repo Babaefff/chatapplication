@@ -8,7 +8,7 @@ import {
   Tabs,
   Text,
 } from "@chakra-ui/react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Login from "../components/Authentication/Login";
@@ -18,18 +18,13 @@ import { setUser } from "../states";
 const HomePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem("userInfo"))
-
-  
-  
+  const user = JSON.parse(localStorage.getItem("userInfo"));
 
   useEffect(() => {
     dispatch(setUser());
-
-
     if (user) {
       navigate("/chats");
-    } 
+    }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -45,7 +40,7 @@ const HomePage = () => {
         borderWidth="1px"
       >
         <Text fontSize="4xl" fontFamily="Work Sans" color="black">
-          Tanisdig Sayti
+          Do Message
         </Text>
       </Box>
       <Box bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px">

@@ -76,8 +76,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       socket.emit("join chat", selectedChat._id);
     } catch (error) {
       toast({
-        title: "Nese olduye",
-        description: "yukluyemmedik butun mesajlari",
+        title: "Something happen",
+        description: "Cannot fetch all the messages",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -103,13 +103,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           config
         );
         socket.emit("new message", data);
-        console.log("de buraaaaaaaaaa ");
 
         setMessages([...messages, data]);
       } catch (error) {
         toast({
-          title: "Nese olduye",
-          description: "gonderemmediye mesaji",
+          title: "Something happen",
+          description: "Cannot send message",
           status: "error",
           duration: 5000,
           isClosable: true,
@@ -121,7 +120,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   // useEffects
   useEffect(() => {
-    console.log(messages, "messafes");
     socket = io(ENDPOINT);
     socket.emit("setup", user);
     socket.on("connected", () => {
@@ -136,8 +134,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   useEffect(() => {
     if (selectedChat) {
-      console.log(selectedChat);
-      console.log("bax deyisdi");
       fetchMessages();
       selectedChatCompare = selectedChat;
     } else {
@@ -146,22 +142,16 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   }, [selectedChat]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    console.log(notifications, "notific");
-    console.log("bes burz");
-
     const handleNewMessage = (newMessageReceived) => {
-      console.log("burada gelir");
       if (
         !selectedChatCompare ||
         selectedChatCompare._id !== newMessageReceived.chat._id
       ) {
-        console.log(!notifications.includes(newMessageReceived));
         if (!notifications.includes(newMessageReceived)) {
           dispatch(setNotifications({ add: newMessageReceived }));
           setFetchAgain(!fetchAgain);
         }
       } else {
-        console.log("bunu nece eliyir");
         setMessages([...messages, newMessageReceived]);
       }
     };
@@ -286,7 +276,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               <Input
                 variant="filled"
                 bg="#E0E0E0"
-                placeholder="Mesaj yaz da"
+                placeholder="Write a message"
                 onChange={typingHandler}
                 value={newMessage}
               />
@@ -301,7 +291,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           h="100%"
         >
           <Text fontSize={"3xl"} pb={3} fontFamily="Work sans">
-            Baski mesajlar acilsinda
+            Click for messages
           </Text>
         </Box>
       )}

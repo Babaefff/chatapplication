@@ -4,13 +4,15 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSender } from "../config/ChatLogics";
-import { setChat, setChats, setSelectedChat } from "../states";
+import { setChats, setSelectedChat } from "../states";
 import ChatLoading from "./ChatLoading";
 import GroupChatModal from "./miscellaneous/GroupChatModal";
 
 const MyChats = ({ fetchAgain }) => {
   // states
-  const [loggedUser, setLoggedUser] = useState(JSON.parse(localStorage.getItem("userInfo")))
+  const [loggedUser, setLoggedUser] = useState(
+    JSON.parse(localStorage.getItem("userInfo"))
+  );
   const user = useSelector((state) => state.user);
   const selectedChat = useSelector((state) => state.selectedChat);
   const chats = useSelector((state) => state.chats);
@@ -30,8 +32,8 @@ const MyChats = ({ fetchAgain }) => {
       dispatch(setChats(data));
     } catch (error) {
       toast({
-        title: "Nese olduye",
-        description: "Chatlari yukluyemmediye",
+        title: "Something happen",
+        description: "Cannot fetch chats",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -39,7 +41,7 @@ const MyChats = ({ fetchAgain }) => {
       });
     }
   };
-  
+
   // useEffect
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
@@ -75,7 +77,7 @@ const MyChats = ({ fetchAgain }) => {
             fontSize={{ base: "17px", md: "10px", lg: "17px" }}
             rightIcon={<AddIcon />}
           >
-            Teze Grup Chati
+            New Group Chat
           </Button>
         </GroupChatModal>
       </Box>
@@ -105,7 +107,7 @@ const MyChats = ({ fetchAgain }) => {
                 <Text>
                   {" "}
                   {!chat.isGroupChat
-                    ? getSender(loggedUser , chat.users)
+                    ? getSender(loggedUser, chat.users)
                     : chat.chatName}
                 </Text>
               </Box>

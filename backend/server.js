@@ -1,6 +1,6 @@
 // imports
 const express = require("express");
-const chats = require("./data");
+
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const path = require("path");
@@ -56,7 +56,7 @@ io.on("connection", (socket) => {
   });
   // join chat
   socket.on("join chat", (room) => {
-    console.log(room, "rooom");
+ 
 
     socket.join(room);
   });
@@ -71,10 +71,10 @@ io.on("connection", (socket) => {
   // new message
   socket.on("new message", (newMessageReceived) => {
     var chat = newMessageReceived.chat;
-    console.log("necedefe gelir")
+  
     chat.users.forEach((user) => {
       if (user._id == newMessageReceived.sender._id) return;
-      console.log("cox gelir he bu")
+    
       
       socket.broadcast.to(user._id).emit("message received", newMessageReceived);
     });

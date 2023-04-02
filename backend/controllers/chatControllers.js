@@ -18,7 +18,7 @@ const accessChat = asyncHandler(async (req, res) => {
     .populate("users", "-password")
     .populate("latestMessage");
 
-  console.log(isChat[0]);
+
   isChat = await User.populate(isChat, {
     path: "latestMessage.sender",
     select: "name picture email",
@@ -73,7 +73,7 @@ const createGroupChat = asyncHandler(async (req, res) => {
   }
   var users = JSON.parse(req.body.users);
   if (users.length < 2) {
-    return res.status(400).send("2 neferden cox secdee");
+    return res.status(400).send("2 or more user");
   }
   users.push(req.user);
   try {
@@ -105,7 +105,7 @@ const renameGroup = asyncHandler(async (req, res) => {
 
   if (!updatedChat) {
     res.status(404);
-    throw new Error("Chat yoxdu qaas");
+    throw new Error("There is not chat");
   } else {
     res.json(updatedChat);
   }
@@ -122,7 +122,7 @@ const addToGroup = asyncHandler(async (req, res) => {
     .populate("groupAdmin", "-password");
   if (!added) {
     res.status(404);
-    throw new Error("Chat yene yoxdu yetm");
+    throw new Error("there is no chat again");
   } else {
     res.json(added);
   }
@@ -139,7 +139,7 @@ const removeFromGroup = asyncHandler(async (req, res) => {
     .populate("groupAdmin", "-password");
   if (!removed) {
     res.status(404);
-    throw new Error("Chat yene yoxdu yetm");
+    throw new Error("there is no chat again and again");
   } else {
     res.json(removed);
   }

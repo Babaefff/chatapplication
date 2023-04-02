@@ -6,12 +6,12 @@ const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, picture } = req.body;
   if (!name || !email || !password) {
     res.status(400);
-    throw new Error("Butun yerleri yaz");
+    throw new Error("All the field pls");
   }
   const userExists = await User.findOne({ email });
   if (userExists) {
     res.status(400);
-    throw new Error("Email var databasada");
+    throw new Error("email already in database");
   }
   const user = await User.create({
     name,
@@ -30,7 +30,7 @@ const registerUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error("Database a attammadiq fieldi");
+    throw new Error("Cannot add field to database");
   }
 });
 
@@ -47,7 +47,7 @@ const authUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error("Kod yada email sehvdi");
+    throw new Error("Email or password is incorrect");
   }
 });
 

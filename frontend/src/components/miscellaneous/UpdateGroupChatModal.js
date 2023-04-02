@@ -36,7 +36,6 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain ,fetchMessages}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // redux states
-  const chats = useSelector((state) => state.chats);
   const user = useSelector((state) => state.user);
   const selectedChat = useSelector((state) => state.selectedChat);
 
@@ -45,7 +44,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain ,fetchMessages}) => {
   const handleAddUser = async (userAdd) => {
     if (selectedChat.users.find((u) => u._id === userAdd._id)) {
       toast({
-        title: "Varda icinde gormursen",
+        title: "Already inside",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -56,7 +55,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain ,fetchMessages}) => {
 
     if (selectedChat.groupAdmin._id !== user._id) {
       toast({
-        title: "Ancaq borzu admin eliye biler",
+        title: "Only admin can",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -85,7 +84,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain ,fetchMessages}) => {
       setLoading(false);
     } catch (error) {
       toast({
-        title: "Nese oldu",
+        title: "Something happen",
         description: error.response.data.message,
         status: "error",
         duration: 5000,
@@ -102,7 +101,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain ,fetchMessages}) => {
       userRemove._id !== user._id
     ) {
       toast({
-        title: "Ancaq borzu admin sile biler",
+        title: "Only admin can remove",
 
         status: "error",
         duration: 5000,
@@ -131,7 +130,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain ,fetchMessages}) => {
       setLoading(false);
     } catch (error) {
       toast({
-        title: "Nese oldu",
+        title: "Something happen",
         description: error.response.data.message,
         status: "error",
         duration: 5000,
@@ -189,8 +188,8 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain ,fetchMessages}) => {
       setSearchResult(data);
     } catch (error) {
       toast({
-        title: "Nese olduye",
-        description: "Axtaranda nese olduye",
+        title: "Something happen",
+        description: "Something happen when search",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -244,7 +243,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain ,fetchMessages}) => {
             </FormControl>
             <FormControl>
               <Input
-                placeholder="Elave elede"
+                placeholder="Add"
                 mb={1}
                 onChange={(e) => handleSearch(e.target.value)}
               ></Input>
@@ -264,7 +263,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain ,fetchMessages}) => {
 
           <ModalFooter>
             <Button colorScheme="red" mr={3} onClick={() => handleRemove(user)}>
-              Qrupdan CIX!
+              Leave Group
             </Button>
           </ModalFooter>
         </ModalContent>

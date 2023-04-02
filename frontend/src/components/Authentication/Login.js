@@ -29,7 +29,7 @@ const Login = () => {
     setLoading(true);
     if (!email || !password ){
       toast({
-        title: "Doldur her yeri",
+        title: "Fill all the fields",
         status: "warning",
         duration: 5000,
         isClosable: true,
@@ -52,7 +52,7 @@ const Login = () => {
       );
       console.log(JSON.stringify(data));
       toast({
-        title: "Login oldun miwka",
+        title: "Login Successful",
         status: "success",
         duration: 5000,
         isClosable: true,
@@ -68,7 +68,7 @@ const Login = () => {
       
     } catch (error) {
       toast({
-        title: "Nese error var",
+        title: "There are some error",
         description: error.response.data.message,
         status: "warning",
         duration: 5000,
@@ -126,7 +126,7 @@ const Login = () => {
           setPassword("123456");
         }}
       >
-        Qonaq kimi gir
+        Login as a quest
       </Button>
     </VStack>
   );

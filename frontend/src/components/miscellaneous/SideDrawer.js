@@ -65,7 +65,7 @@ const SideDrawer = () => {
   const handleSearch = async () => {
     if (!search) {
       toast({
-        title: "Nese yazda ",
+        title: "Write something",
 
         status: "warning",
         duration: 5000,
@@ -86,7 +86,7 @@ const SideDrawer = () => {
       setSearchResult(data);
     } catch (error) {
       toast({
-        title: "Axtarammadiq ",
+        title: "Cannot search",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -111,7 +111,7 @@ const SideDrawer = () => {
       onClose();
     } catch (error) {
       toast({
-        title: "Chati goturende nese sehv oldu ",
+        title: "Something happen when fetching chat ",
         description: error.message,
         status: "warning",
         duration: 5000,
@@ -133,16 +133,16 @@ const SideDrawer = () => {
         p="5px 10px 5px 10px"
         borderWidth={"5px"}
       >
-        <Tooltip label="Axtar adam mesajlas" hasArrow placement="bottom-end">
+        <Tooltip label="Search someone and start chat" hasArrow placement="bottom-end">
           <Button variant="ghost" onClick={onOpen}>
             <i className="fas fa-search"></i>
             <Text display={{ base: "none", md: "flex" }} px="4">
-              Adam Axtar
+              Look for someone to chat
             </Text>
           </Button>
         </Tooltip>
         <Text fontSize="2xl" fontFamily="Work-sans">
-          Mini-Mini
+          Do Message
         </Text>
         <div>
           <Menu>
@@ -155,7 +155,7 @@ const SideDrawer = () => {
             </MenuButton>
             <MenuList pl={2} pr={2}>
               {!notifications.length
-                ? "Teze mesaj yoxdu"
+                ? "No new message"
                 : notifications.map((notification) => (
                     <MenuItem
                       onClick={() => {
@@ -168,8 +168,8 @@ const SideDrawer = () => {
                       }}
                     >
                       {notification.chat.isGroupChat
-                        ? `Teze Mesaj var burda ${notification.chat.chatName}`
-                        : `Teze mesaj gonderiba ${getSender(
+                        ? `New message from ${notification.chat.chatName}`
+                        : `New message from  ${getSender(
                             user,
                             notification.chat.users
                           )}`}
@@ -199,16 +199,16 @@ const SideDrawer = () => {
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />\
         <DrawerContent>
-          <DrawerHeader borderBottomWidth="1px">Adam Axtar</DrawerHeader>
+          <DrawerHeader borderBottomWidth="1px">Look for someone</DrawerHeader>
           <DrawerBody>
             <Box display={"flex"} pb="2">
               <Input
-                placeholder="Axtar adnan ya da emailnan"
+                placeholder="Look for name or email"
                 mr={2}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               ></Input>
-              <Button onClick={handleSearch}>Getdun</Button>
+              <Button onClick={handleSearch}>Search</Button>
             </Box>
             {loading ? (
               <ChatLoading />

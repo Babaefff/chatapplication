@@ -31,7 +31,6 @@ const GroupChatModal = ({ children }) => {
 
   const chats = useSelector((state) => state.chats);
   const user = useSelector((state) => state.user);
-  const selectedChat = useSelector((state) => state.selectedChat);
   const dispatch = useDispatch();
 
   const handleSearch = async (query) => {
@@ -52,8 +51,8 @@ const GroupChatModal = ({ children }) => {
       setSearchResult(data);
     } catch (error) {
       toast({
-        title: "Nese olduye",
-        description: "Axtaranda nese olduye",
+        title: "Something happen",
+        description: "Something happen when search",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -65,7 +64,7 @@ const GroupChatModal = ({ children }) => {
   const handleSubmit = async () => {
     if (!groupChatName || !selectedUsers) {
       toast({
-        title: "Doldurda ala hamsini",
+        title: "Fill all the fields",
 
         status: "warning",
         duration: 5000,
@@ -91,7 +90,7 @@ const GroupChatModal = ({ children }) => {
       dispatch(setChats([data, ...chats]));
       onClose();
       toast({
-        title: "Teze qrup cati duzeltdiy yetm dolusun",
+        title: "New group created successfully",
 
         status: "success",
         duration: 5000,
@@ -100,7 +99,7 @@ const GroupChatModal = ({ children }) => {
       });
     } catch (error) {
       toast({
-        title: "Qrup cati qurammadiq",
+        title: "Cannot create group chat",
         description: error.response.data,
         status: "error",
         duration: 5000,
@@ -115,7 +114,7 @@ const GroupChatModal = ({ children }) => {
   const handleGroup = (userToAdd) => {
     if (selectedUsers.includes(userToAdd)) {
       toast({
-        title: "Atmisanda ala",
+        title: "Already inside",
         status: "warning",
         duration: 5000,
         isClosable: true,
@@ -151,7 +150,7 @@ const GroupChatModal = ({ children }) => {
             </FormControl>
             <FormControl>
               <Input
-                placeholder="Elave eleye"
+                placeholder="Add Someone"
                 mb={1}
                 onChange={(e) => handleSearch(e.target.value)}
               ></Input>
@@ -182,7 +181,7 @@ const GroupChatModal = ({ children }) => {
 
           <ModalFooter>
             <Button colorScheme="blue" onClick={handleSubmit}>
-              Chati yarat
+              Create chat
             </Button>
           </ModalFooter>
         </ModalContent>

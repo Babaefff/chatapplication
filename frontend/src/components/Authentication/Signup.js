@@ -18,18 +18,17 @@ const Signup = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmpassword, setConfirmpassword] = useState();
-  const  [picture, setPicture] = useState();
+  const [picture, setPicture] = useState();
   const [loading, setLoading] = useState(false);
-  const toast = useToast();;
+  const toast = useToast();
   const navigate = useNavigate();
 
   const handleClick = () => {
     setShow(!show);
   };
   useEffect(() => {
-    console.log(picture );
     setLoading(false);
-  }, [ picture ]);
+  }, [picture]);
 
   const postDetails = (pics) => {
     setLoading(true);
@@ -43,7 +42,7 @@ const Signup = () => {
       });
       return;
     }
-    console.log(pics);
+
     if (pics.type === "image/jpeg" || pics.type === "image/png") {
       const data = new FormData();
       data.append("file", pics);
@@ -56,10 +55,7 @@ const Signup = () => {
         .then((res) => res.json())
         .then((data) => {
           setPicture(data.url.toString());
-          console.log(data.url.toString());
-          console.log(data);
-          console.log(picture);
-         
+        
         })
         .catch((err) => {
           console.log(err);
@@ -82,7 +78,7 @@ const Signup = () => {
     setLoading(true);
     if (!name || !email || !password || !confirmpassword) {
       toast({
-        title: "Doldur her yeri",
+        title: "Fill all the field",
         status: "warning",
         duration: 5000,
         isClosable: true,
@@ -93,7 +89,7 @@ const Signup = () => {
     }
     if (password !== confirmpassword) {
       toast({
-        title: "Passwordlar uygun gelmir",
+        title: "Passwords arent matched",
         status: "warning",
         duration: 5000,
         isClosable: true,
@@ -108,14 +104,14 @@ const Signup = () => {
           "Content-Type": "application/json",
         },
       };
-      console.log(`picture ${picture}`);
+    
       const { data } = await axios.post(
         "/api/user",
         { name, email, password, picture },
         config
       );
       toast({
-        title: "Registr oldun miwka",
+        title: "You are registered successfully",
         status: "success",
         duration: 5000,
         isClosable: true,
@@ -126,7 +122,7 @@ const Signup = () => {
       navigate("/chats");
     } catch (error) {
       toast({
-        title: "Nese error var",
+        title: "There are some error",
         description: error.response.data.message,
         status: "warning",
         duration: 5000,
